@@ -86,13 +86,13 @@ goto fin
 	if %contador% lss 4 (
 	set /a contador=%contador%+1
 	timeout 2 /nobreak > nul
+	cd..
 	goto login
 	) else (
 	echo Has excedido los 5 intentos, espera %tiempo% segundos para continuar
 	set /a tiempo=%tiempo%+60
 	timeout %tiempo% /nobreak
-	set usuario=
-	set contra=
+	cd..
 	goto login
 	)
 

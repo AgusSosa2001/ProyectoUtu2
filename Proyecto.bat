@@ -37,6 +37,7 @@ color a
 	cls
 	
 	:Menu
+	set opcion1= 0
 	echo ::::::::::::::::::
 	echo :Que desea hacer?:
 	echo ::::::::::::::::::

@@ -1,5 +1,9 @@
 	@echo off    
 	color b
+	set rced=0
+	set rcontra=0
+	set rcorreo=0
+	set rusuario=0
 	cd proyecto
 	cd Usuarios
 	if not exist Pendientes (
@@ -10,22 +14,35 @@
 	set tiempo=60
 	cls
 
+:Cedula
+	echo ::::::::::::
+	echo ::REGISTRO::
+	echo ::::::::::::
+	echo.
+	echo Ingrese la cedula sin puntos ni guiones
+	echo Ejemplo: 12345678
+	set /p rced= Cedula: 
+	if exist %rced% (
+		goto errorcedula
+	) else (
+		md %rced%
+	)
+	cd %rced%
+	echo Cedula: %rced% > %rced%.txt
+	cls
+	color b
+	goto Nombre
+
 :Nombre
 	echo ::::::::::::
 	echo ::REGISTRO::
 	echo ::::::::::::
 	echo.
 	set /p rusuario= Nombre de usuario: 
-	if exist %rusuario% (
-		goto errornombre
-	) else (
-		md %rusuario%
-		cd %rusuario%
-		echo Nombre: %rusuario% > %rusuario%.txt
+		echo Nombre: %rusuario% >> %rced%.txt
 		cls
 		color b
 		goto Contra
-	)
 
 :Contra
 	echo ::::::::::::
@@ -33,7 +50,7 @@
 	echo ::::::::::::
 	echo.
 	set /p rcontra= Contrasenia: 
-	echo Contrasenia: %rcontra% >> %rusuario%.txt
+	echo Contrasenia: %rcontra% >> %rced%.txt
 	cls
 	goto Correo
 
@@ -43,31 +60,32 @@
 	echo ::::::::::::
 	echo.
 	set /p rcorreo= Correo electronico: 
-	echo Correo electronico: %rcorreo% >> %rusuario%.txt
-	findstr "@" %rusuario%.txt
+	echo Correo electronico: %rcorreo% >> %rced%.txt
+	findstr "@" %rced%.txt
 	if %errorlevel% equ 1 (
 	goto errorcorreo
 	)
 	if %errorlevel% equ 0 (
 	cls 
+	color b
 	goto fin
 	)
 
 ::Errores
-:errornombre
+:errorcedula
 	color c
 	cls
-	echo El nombre de usuario ya existe
+	echo El usuario ya existe
 	echo Intente nuevamente
 	if %contador% lss 4 (
 	set /a contador=%contador%+1
 	timeout 2 /nobreak > nul
-	goto Nombre
+	goto Cedula
 	) else (
 	echo Has excedido los 5 intentos, espera %tiempo% segundos para continuar
 	set /a tiempo=%tiempo%+60
 	timeout %tiempo% /nobreak
-	goto Nombre
+	goto Cedula
 	)
 
 :errorcorreo

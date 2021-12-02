@@ -4,4 +4,7 @@ color a
 echo ::::::::::::::::::::::::::::::::
 echo ::Sesion iniciada como Cliente::
 echo ::::::::::::::::::::::::::::::::
-pause
+timeout 2 /nobreak > nul
+
+:Menu
+

@@ -64,7 +64,7 @@ echo ::::::::::::::::::::::::::::::::::::::
 echo ::Login                             ::
 echo ::::::::::::::::::::::::::::::::::::::
 echo.
-set /p ced= Usuario: 
+set /p ced= Cédula: 
 if not exist %ced% (
 goto error 
 ) else (
